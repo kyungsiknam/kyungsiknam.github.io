@@ -7,6 +7,31 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script>
+    function testGeoLocation() {
+      if(!navigator.geolocation) {
+         alert('위치정보를 지웒지 않는 브라우저입니다.');
+      } else {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          var locationText = position.coords.latitude + ","+position.coords.longitude;
+          $("#current-geo-location").text(locationText); 
+        }, function() {
+          alert('위치정보 권한에 대한 동의가 필요합니다.')
+        });
+      }
+    }
+
+    function testLocalStroage() {
+      if (! window.localStorage ) {
+        alert('LocalStorage를 지원하지 않는 브라우저입니다.');
+      } else {
+        var testValue = 'ok :' + new Date();
+        window.localStorage.setItem('test', testValue);
+        alert('LocalStorage를 지원되면 ok 메시지와 시간이 표시됩니다.\n' + window.localStorage.getItem('test'))
+      }
+    }
+
+  </script>
 </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -43,7 +68,20 @@
           네이버 웹 - window.open() 
           <button type="button" class="btn btn-secondary btn-sm" onclick="window.open('https://m.naver.com')">Action</button>
         </div>
-      </li>                
+      </li>    
+      <li class="list-group-item">
+        <div class="d-flex justify-content-between">
+          위치정보 가져오기
+          <button type="button" class="btn btn-secondary btn-sm" onclick="testGeoLocation()">Action</button>
+        </div>
+        <span id="current-geo-location" class="text-warning">위치정보 없음</span>
+      </li>  
+      <li class="list-group-item">
+        <div class="d-flex justify-content-between">
+          LocalStorage 테스트
+          <button type="button" class="btn btn-secondary btn-sm" onclick="testLocalStroage()">Action</button>
+        </div>
+      </li>                           
     </ul>    
   </div>
       
